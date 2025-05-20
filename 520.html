@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>520快乐</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0d1b2a;
+      overflow: hidden;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    /* 爱心容器（跳动动画） */
+    .heart-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: heartbeat 1.5s infinite ease-in-out;
+    }
+
+    /* 跳动动画 */
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.2);
+      }
+    }
+
+    /* 爱心形状 */
+    .heart {
+      width: 200px;
+      height: 180px;
+      background: red;
+      position: relative;
+      transform: rotate(-45deg);
+      box-shadow: 0 0 20px red;
+      animation: pulse 1s infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 180px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -100px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: 100px;
+      top: 0;
+    }
+
+    /* 中心文字 */
+    .heart-text {
+      position: absolute;
+      top: 50%;
+      left:50%;
+      transform: translate(-50%, -50%);
+      font-size: 40px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 1px 1px 0 #f00, 2px 2px 3px #c00, 0 0 15px rgba(255, 0, 0, 0.6);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* 垂直下落文字 */
+    .love-text {
+      position: absolute;
+      font-size: 20px;
+      opacity: 0.5;
+      animation: fall linear infinite;
+      writing-mode: vertical-rl;
+      color: #ffffff88;
+      text-orientation: upright;
+      letter-spacing: 2px;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 心跳的爱心 -->
+  <div class="heart-container">
+    <div class="heart"></div>
+    <div class="heart-text">520快乐</div>
+  </div>
+
+  <!-- JS 控制下落的爱语 -->
+  <script>
+    const phrases = [
+      "我爱你", "I love you", "Je t'aime", "Te quiero", "Ich liebe dich",
+      "Ti amo", "사랑해", "Aishiteru", "Я тебя люблю", "Anh yêu em",
+      "Phom rak khun", "Eu te amo", "Saranghae", "Kocham Cię", "愛してる"
+    ];
+
+    function createFallingText() {
+      const text = document.createElement("div");
+      text.className = "love-text";
+      text.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+      text.style.left = Math.random() * 100 + "vw";
+      text.style.animationDuration = 6 + Math.random() * 4 + "s";
+      text.style.fontSize = 16 + Math.random() * 6 + "px";
+      document.body.appendChild(text);
+
+      setTimeout(() => {
+        document.body.removeChild(text);
+      }, 10000);
+    }
+
+    setInterval(createFallingText, 200);
+  </script>
+</body>
+</html>
